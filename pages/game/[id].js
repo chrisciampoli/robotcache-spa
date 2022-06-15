@@ -1,26 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import styles from '../../styles/Details.module.css';
 import Link from "next/link";
 
-export default function Details() {
-  const {
-    query: { id },
-  } = useRouter();
-
-  const [game, setGame] = useState(null);
-
-  useEffect(() => {
-    async function getGame() {
-        const resp = await fetch(`https://cdn.robotcache.com/json/${id}.json`);
-        setGame(await resp.json());
+export async function getServerSideProps({params}) {
+    const resp = await fetch(`https://cdn.robotcache.com/json/${params.id}.json`);
+  
+    return {
+      props: {
+        game: await resp.json()
+      }
     }
+  }
 
-    getGame();
-  }, [id])
-
+export default function Details({game}) {
   if(!game) {
     return null;
   }
