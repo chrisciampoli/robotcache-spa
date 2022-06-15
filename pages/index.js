@@ -4,7 +4,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const resp = await fetch("https://cdn.robotcache.com/json/storerows.json");
 
   return {

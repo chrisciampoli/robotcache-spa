@@ -4,7 +4,30 @@ import Head from "next/head";
 import styles from '../../styles/Details.module.css';
 import Link from "next/link";
 
-export async function getServerSideProps({params}) {
+export async function getStaticPaths() {
+    return {
+        paths: [
+            {
+                params: {id: '598'}
+            },
+            {
+                params: {id: '933'}
+            },
+            {
+                params: {id: '940'}
+            },
+            {
+                params: {id: '984'}
+            },
+            {
+                params: {id: '995'}
+            },
+        ],
+        fallback: false
+    }
+}
+
+export async function getStaticProps({params}) {
     const resp = await fetch(`https://cdn.robotcache.com/json/${params.id}.json`);
   
     return {
